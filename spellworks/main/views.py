@@ -2,13 +2,13 @@
 __author__ = 'zeno guo'
 
 from flask.views import MethodView
-from flask import jsonify
+from flask import jsonify, render_template
 
 
 class Index(MethodView):
 
     def get(self):
-        return "hello, world"
+        return render_template('test.html')
 
     def post(self, *args, **kw):
         return jsonify(status='ok')

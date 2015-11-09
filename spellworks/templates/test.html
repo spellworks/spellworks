@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Spellworks</title>
+    <link href="{{url_for('static', filename='css/sidebar.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery-1.10.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/google-maps.js')}}"></script>
+    <script>
+    $(document).ready(function() {
+        $(".vertical-nav").verticalnav();
+    });
+    </script>
 </head>
 
-<body>{{hi}}</body>
+<body>
+    <ul class="vertical-nav dark red">
+        <li class="active"><a href="#"><i class="icon-home"></i>首页</a></li>
+        <li><a href="#"><i class="icon-cogs"></i>服务
+        <span class="submenu-icon"></span></a>
+            <ul>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="icon-briefcase"></i>产品
+        <span class="submenu-icon"></span></a>
+            <ul>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航<span class="submenu-icon"></span></a>
+                    <ul>
+                        <li><a href="#">三级导航</a></li>
+                        <li><a href="#">三级导航</a></li>
+                        <li><a href="#">三级导航 <span class="submenu-icon"></span>
+                </a>
+                            <ul>
+                                <li><a href="#">四级导航</a></li>
+                                <li><a href="#">四级导航</a></li>
+                                <li><a href="#">四级导航</a></li>
+                                <li><a href="#">四级导航</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">三级导航</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">二级导航</a></li>
+                <li><a href="#">二级导航</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="icon-user"></i>关于我们</a></li>
+        <li><a href="#"><i class="icon-comments-alt"></i>博客</a></li>
+        <li><a href="#"><i class="icon-picture"></i>导航</a></li>
+        <li><a href="#"><i class="icon-info"></i>信息</a></li>
+        <li><a href="#"><i class="icon-group"></i>团队</a></li>
+        <li><a href="#"><i class="icon-question"></i>常见问题</a></li>
+        <li><a href="#"><i class="icon-bar-chart"></i>案例</a></li>
+        <li><a href="#"><i class="icon-envelope"></i>联系我们</a></li>
+    </ul>
+</body>
 
 </html>
