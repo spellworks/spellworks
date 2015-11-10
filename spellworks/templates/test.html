@@ -7,6 +7,7 @@
     <title>Spellworks</title>
     <link href="{{url_for('static', filename='favicon.ico')}}" rel="icon" type="image/x-icon" />
     <link href="{{url_for('static', filename='css/sidebar.css')}}" rel="stylesheet">
+    <link href="//cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/google-maps.js')}}"></script>
     <script>
@@ -18,20 +19,9 @@
 
 <body>
     <ul class="vertical-nav dark red">
-        <li class="active"><a href="#"><i class="icon-home"></i>首页</a></li>
-        <li><a href="#"><i class="icon-cogs"></i>服务
-        <span class="submenu-icon"></span></a>
-            <ul>
-                <li><a href="#">二级导航</a></li>
-                <li><a href="#">二级导航</a></li>
-                <li><a href="#">二级导航</a></li>
-                <li><a href="#">二级导航</a></li>
-                <li><a href="#">二级导航</a></li>
-                <li><a href="#">二级导航</a></li>
-            </ul>
-        </li>
-        <li><a href="#"><i class="icon-coffee"></i>产品
-        <span class="submenu-icon"></span></a>
+        <li class="active"><a href="/"><i class="fa fa-home"></i>Spellworks</a></li>
+        <li><a href="#"><i class="fa fa-coffee"></i>Cafe</a>
+<!--         <span class="submenu-icon"></span></a>
             <ul>
                 <li><a href="#">二级导航</a></li>
                 <li><a href="#">二级导航</a></li>
@@ -53,16 +43,12 @@
                 </li>
                 <li><a href="#">二级导航</a></li>
                 <li><a href="#">二级导航</a></li>
-            </ul>
+            </ul> -->
         </li>
-        <li><a href="#"><i class="icon-user"></i>关于我们</a></li>
-        <li><a href="#"><i class="icon-comments-alt"></i>博客</a></li>
-        <li><a href="#"><i class="icon-picture"></i>导航</a></li>
-        <li><a href="#"><i class="icon-info"></i>信息</a></li>
-        <li><a href="#"><i class="icon-group"></i>团队</a></li>
-        <li><a href="#"><i class="icon-question"></i>常见问题</a></li>
-        <li><a href="#"><i class="icon-bar-chart"></i>案例</a></li>
-        <li><a href="#"><i class="icon-envelope"></i>联系我们</a></li>
+        <!-- <li><a href="#"><i class="fa fa-user"></i>关于我们</a></li> -->
+        <li><a href="#"><i class="fa fa-newspaper-o"></i>博客/托管</a></li>
+        <li><a href="#"><i class="fa fa-envelope"></i>联系我们</a></li>
+        <li class="downground"><a href="#"><i class="fa fa-sign-in"></i>登录/注册</a></li>
     </ul>
 </body>
 
