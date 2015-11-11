@@ -5,7 +5,7 @@ gevent.monkey.patch_all()
 import multiprocessing
 
 # bind = 'unix:/var/run/june.sock'
-bind = '127.0.0.1:8088'
+bind = '127.0.0.1:8089'
 max_requests = 10000
 keepalive = 5
 
