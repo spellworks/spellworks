@@ -2,9 +2,7 @@
 __author__ = 'zeno guo'
 
 from flask.views import MethodView
-from flask import jsonify
-# from . import models
-from main import views
+from flask import jsonify, request
 
 
 class LoginIndex(MethodView):
