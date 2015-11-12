@@ -315,7 +315,7 @@
 
         .modal-inner-container {
             display: none;
-            max-width: 480px;
+            max-width: 518px;
             margin: 0 auto;
             background-color: #fff;
             border: 1px solid #e9e9e9;
@@ -479,4 +479,16 @@
 
         input,button,select,textarea{
             outline:none;
+        }
+
+        .modal-header .close {
+            margin: 10px;
+        }
+
+        .close {
+            float: right;
+            font-size: 1.429em;
+            text-decoration: none;
+            color: #6f6f6f;
+            cursor: pointer;
         }

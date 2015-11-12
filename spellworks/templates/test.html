@@ -41,11 +41,11 @@
         </li>
         <li><a href="#"><i class="fa fa-newspaper-o"></i>Blog</a></li>
         <li><a href="#"><i class="fa fa-envelope"></i>Contact Us</a></li>
-        <li class="downground"><a id="login" href="#test"><i class="fa fa-sign-in"></i>LogIn/SignUp</a></li>
+        <li class="downground"><a id="login" href="#test"><i class="fa fa-sign-in"></i>LogIn&nbsp;/&nbsp;SignUp</a></li>
     </ul>
     <div class="modal-inner-container" id="test">
         <div class="modal-header">
-            <!-- <a class="close" data-ember-action="1676"><i class="fa fa-times"></i></a> -->
+            <a class="close"><i class="fa fa-times"></i></a>
             <h3>Log In</h3>
         </div>
         <div class="modal-body">
@@ -98,7 +98,7 @@
     $(function() {
         $('#login').leanModal({
             top: 242,
-            closeButton: ".modal_close"
+            closeButton: ".close"
         });
     });
 
