@@ -464,6 +464,8 @@
             font-weight: normal;
             color: #fff;
             background: #08c;
+            position: relative;
+            left: 38%;
         }
 
         .btn .fa {
