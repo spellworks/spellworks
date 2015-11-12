@@ -464,8 +464,6 @@
             font-weight: normal;
             color: #fff;
             background: #08c;
-            position: relative;
-            left: 38%;
         }
 
         .btn .fa {
@@ -493,4 +491,15 @@
             text-decoration: none;
             color: #6f6f6f;
             cursor: pointer;
+        }
+
+        #login-form a {
+            color: #6f6f6f;
+        }
+
+        a {
+            color: #08c;
+            text-decoration: none;
+            cursor: pointer;
+            background: transparent;
         }

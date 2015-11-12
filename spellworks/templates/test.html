@@ -51,7 +51,7 @@
         <div class="modal-body">
             <form id="login-form" name="login-form" method="post" action="/login/">
                 <div>
-                    <table>
+                    <table id="form-table">
                         <tr>
                             <td>
                                 <label for="login-account-name">User&nbsp;</label>
@@ -70,7 +70,7 @@
                                 <input id="login-account-password" class="ember-view ember-text-field" name="password" maxlength="200" placeholder="" type="password"> &nbsp;
                             </td>
                             <td>
-                                <a id="forgot-password-link" data-ember-action="1839">I forgot my password</a>
+                                <a id="forgot-password-link">I forgot my password</a>
                             </td>
                         </tr>
                         <tr>
@@ -85,10 +85,10 @@
             <button class="btn btn-login btn-primary" onclick="javascript:update(document.login-form);">
                 <i class="fa fa-unlock"></i>&nbsp;Done
             </button>
-<!--             &nbsp;
-            <button class="btn btn-login" id="new-account-link">
+            &nbsp;
+            <button class="btn btn-login" id="new-account-link" onclick="javascript:create()">
                 Create New Account
-            </button> -->
+            </button>
         </div>
     </div>
 </body>
@@ -105,10 +105,28 @@
     $(document).ready(function() {
         $(".vertical-nav").verticalnav();
     });
+
+    $(function() {
+        $("#lean_overlay").click(function() {
+            if($('#new-account-link').css("display") == "none") {
+                 $("#new-account-link").toggle();
+                 $('#regist-email').remove();
+                 $("#login-account-name").attr("placeholder", "email or username");
+                 $("[for='login-account-name']").text("User");
+            }
+        });
+    });
 </script>
 <script type="text/javascript">
     function update() {
         $("#login-form").submit();
+    };
+
+    function create() {
+        $("#form-table").prepend("<tr id='regist-email'><td><label for='regist-account-email'>Email&nbsp;</label></td><td><input id='regist-account-email' class='ember-view ember-text-field' name='email' maxlength='200' placeholder='your email' type='email'> &nbsp;</td>/tr>");
+        $("#login-account-name").attr("placeholder", "your username");
+        $("[for='login-account-name']").text("Name");
+        $("#new-account-link").toggle();
     };
 </script>
 
