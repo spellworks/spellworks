@@ -15,6 +15,12 @@ class Config:
     #: 管理员账号密码，设置在系统环境变量中
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
 
+    MAIL_SERVER = 'smtp.mxhichina.com'
+    MAIL_PORT = 465
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
     @staticmethod
     def init_app(app):  #: 初始化
         configure_errorhandlers(app)

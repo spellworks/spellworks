@@ -4,10 +4,12 @@ __author__ = 'zeno guo'
 from flask import Flask
 from flask.ext.wtf import CsrfProtect
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.mail import Mail
 
 
 csrf = CsrfProtect()
 db = SQLAlchemy()
+mail = Mail()
 
 
 def create_app(config_name):
@@ -19,5 +21,6 @@ def create_app(config_name):
 
     db.init_app(app)
     csrf.init_app(app)
+    mail.init_app(app)
 
     return app
