@@ -46,11 +46,11 @@
     <div class="modal-inner-container" id="test">
         <div class="modal-header">
             <a class="close"><i class="fa fa-times"></i></a>
-            <h3>Log In</h3>
+            <h3 id="form-title">登录</h3>
         </div>
         <div class="modal-body">
             <form id="login-form" name="login-form" method="post" action="/login/">
-                <div>
+                <div id="form-inner">
                     <table id="form-table">
                         <tr>
                             <td>
@@ -62,7 +62,7 @@
                             </td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr id="password-filed">
                             <td>
                                 <label for="login-account-password">Password&nbsp;</label>
                             </td>
@@ -70,7 +70,7 @@
                                 <input id="login-account-password" class="ember-view ember-text-field" name="password" maxlength="200" placeholder="" type="password"> &nbsp;
                             </td>
                             <td>
-                                <a id="forgot-password-link">I forgot my password</a>
+                                <a id="forgot-password-link" onclick="javascript:forgot_form()">I forgot my password</a>
                             </td>
                         </tr>
                         <tr>
@@ -86,7 +86,7 @@
                 <i class="fa fa-unlock"></i>&nbsp;Done
             </button>
             &nbsp;
-            <button class="btn btn-login" id="new-account-link" onclick="javascript:create()">
+            <button class="btn btn-login" id="new-account-link" onclick="javascript:create_regist_form()">
                 Create New Account
             </button>
         </div>
@@ -107,27 +107,37 @@
     });
 
     $(function() {
-        $("#lean_overlay").click(function() {
+        $(".close, #lean_overlay").click(function() {
             if($('#new-account-link').css("display") == "none") {
-                 $("#new-account-link").toggle();
+                 $("#new-account-link").toggle(true);
+                 $("#form-inner").toggle(true);
                  $('#regist-email').remove();
+                 $("#reset-field").remove();
                  $("#login-account-name").attr("placeholder", "email or username");
                  $("[for='login-account-name']").text("User");
+                 $("#form-title").text("登录");
             }
         });
     });
-</script>
-<script type="text/javascript">
+
     function update() {
         $("#login-form").submit();
     };
 
-    function create() {
+    function create_regist_form() {
         $("#form-table").prepend("<tr id='regist-email'><td><label for='regist-account-email'>Email&nbsp;</label></td><td><input id='regist-account-email' class='ember-view ember-text-field' name='email' maxlength='200' placeholder='your email' type='email'> &nbsp;</td>/tr>");
         $("#login-account-name").attr("placeholder", "your username");
         $("[for='login-account-name']").text("Name");
-        $("#new-account-link").toggle();
+        $("#new-account-link").toggle(false);
+        $("#form-title").text("注册")
     };
+
+    function forgot_form() {
+        $("#form-title").text("重置密码");
+        $("#form-inner").toggle(false);
+        $("#new-account-link").toggle(false);
+        $("#login-form").prepend("<div id='reset-field'><label for='username-or-email'>输入用户名或者邮箱，我们会发送一封邮件到你的邮箱。</label><input id='username-or-email' class='ember-view ember-text-field' autocapitalize='off' autocorrect='off' placeholder='email or username' type='text'></div>");
+    }
 </script>
 
 </html>

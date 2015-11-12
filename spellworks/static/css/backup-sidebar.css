@@ -503,3 +503,14 @@
             cursor: pointer;
             background: transparent;
         }
+
+        body label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        body label, body input, body button, body select, body textarea {
+        font-size: 0.929em;
+        font-weight: normal;
+        line-height: 18px;
+    }
