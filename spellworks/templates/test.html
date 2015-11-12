@@ -14,7 +14,7 @@
 <body>
     <ul class="vertical-nav dark red">
         <li class="active"><a href="/"><i class="fa fa-home"></i>SpellWorks</a></li>
-        <li><a href="#"><i class="fa fa-coffee"></i>Cafe</a>
+        <li><a href="#"><i class="fa fa-coffee"></i>Cafes</a>
             <!--         <span class="submenu-icon"></span></a>
             <ul>
                 <li><a href="#">二级导航</a></li>
@@ -95,20 +95,21 @@
 <script type="text/javascript" src="{{url_for('static', filename='js/google-maps.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/jquery.leanModal.min.js')}}"></script>
 <script type="text/javascript">
-$(function() {
-    $('#login').leanModal({
-        top: 242,
-        closeButton: ".modal_close"
+    $(function() {
+        $('#login').leanModal({
+            top: 242,
+            closeButton: ".modal_close"
+        });
     });
-});
 
-$(document).ready(function() {
-    $(".vertical-nav").verticalnav();
-});
-
-function update() {
-    $("#login-form").submit();
-};
+    $(document).ready(function() {
+        $(".vertical-nav").verticalnav();
+    });
+</script>
+<script type="text/javascript">
+    function update() {
+        $("#login-form").submit();
+    };
 </script>
 
 </html>
