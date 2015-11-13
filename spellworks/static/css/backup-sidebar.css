@@ -37,6 +37,7 @@
         body {
             color: #333;
             text-align: center;
+            font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', Arial,sans-serif;
             /*font: 12px "‹S";*/
         }
 
@@ -59,7 +60,7 @@
                 margin: 0;
                 padding: 0;
                 float: left;
-                font-family: Segoe UI, Arial;
+                font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', Arial,sans-serif;
                 position: absolute;
                 list-style: none;
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
@@ -95,7 +96,7 @@
                 margin: 0;
                 padding: 0;
                 float: left;
-                font-family: Segoe UI, Arial;
+                font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', Arial,sans-serif;
                 position: relative;
                 list-style: none;
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
@@ -119,7 +120,7 @@
             width: 100%;
             padding: 0;
             float: left;
-            font-size: 14px;
+            font-size: 15px;
             position: relative;
             box-sizing: border-box;
             -moz-box-sizing: border-box;
