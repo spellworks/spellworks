@@ -3,12 +3,12 @@ __author__ = 'zeno guo'
 
 from flask import Flask
 from flask.ext.wtf import CsrfProtect
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.mail import Mail
+from flask.ext.mongoengine import MongoEngine
 
 
 csrf = CsrfProtect()
-db = SQLAlchemy()
+db = MongoEngine()
 mail = Mail()
 
 
