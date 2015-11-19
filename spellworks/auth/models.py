@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
 __author__ = 'zeno guo'
 
-from spellworks import db
+from spellworks import db, login_manager
 from datetime import datetime
+from flask import current_app
+from flask.ext.login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app
 
 
 class Permission:
@@ -44,7 +45,7 @@ class Role(db.Document):
                 role.save()
 
 
-class User(db.Document):
+class User(UserMixin, db.Document):
     role = db.ReferenceField(Role)
     email = db.EmailField(required=True)
     username = db.StringField(regex=r'[a-zA-Z\_][0-9a-zA-Z\_]*', max_length=42, required=True)
@@ -82,3 +83,8 @@ class User(db.Document):
         if data.get(token_type) != self.id:
             return False
         return True
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.objects(int(user_id)).first()

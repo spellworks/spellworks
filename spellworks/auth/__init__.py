@@ -6,5 +6,5 @@ from flask import Blueprint
 
 auth = Blueprint('auth', __name__)
 
-from . import views
-from . import urls
+from auth import views
+from auth import urls
