@@ -84,6 +84,10 @@ class User(UserMixin, db.Document):
             return False
         return True
 
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        self.save()
+
 
 @login_manager.user_loader
 def load_user(user_id):
