@@ -1,2 +1,2 @@
 # spellworks
-potoype for spellworks forum, based on gunicorn, flask and mongoengine.
+Potoype for spellworks forum, based on flask and mongoengine.
