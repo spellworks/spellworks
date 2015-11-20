@@ -83,7 +83,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-login btn-primary" onclick="javascript:update(document.login-form);">
+            <button class="btn btn-login btn-primary" onclick="javascript:update(document.login-form);" form="login-form">
                 <i class="fa fa-unlock"></i>&nbsp;Done
             </button>
             &nbsp;
@@ -121,9 +121,9 @@
         });
     });
 
-    function update() {
-        $("#login-form").submit();
-    };
+    // function update() {
+    //     $("#login-form").submit();
+    // };
 
     function create_regist_form() {
         $("#form-table").prepend("<tr id='regist-email'><td><label for='regist-account-email'>Email&nbsp;</label></td><td><input id='regist-account-email' class='ember-view ember-text-field' name='email' maxlength='200' placeholder='your email' type='email'> &nbsp;</td>/tr>");

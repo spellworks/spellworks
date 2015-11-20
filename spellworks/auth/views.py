@@ -27,13 +27,16 @@ def unconfirmed():
 
 class LoginIndex(MethodView):
 
+    def get(self, *args, **kw):
+        return redirect(url_for('main.index'))
+
     def post(self, *args, **kw):
         form = request.form
         try:
-            user = User.objects(email=form.email).first()
+            user = User.objects(email=form['email']).first()
         except BaseException, e:
             raise e
-        if user is not None and login_user.verify_password(form.password):
+        if user is not None and login_user.verify_password(form['password']):
             login_user(user)
         else:
             pass  # TODO: flash something!
