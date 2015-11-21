@@ -4,7 +4,7 @@ __author__ = 'zeno guo'
 from spellworks import db, login_manager
 from datetime import datetime
 from flask import current_app
-from flask.ext.login import UserMixin
+from flask.ext.login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
@@ -50,7 +50,7 @@ class User(UserMixin, db.Document):
     email = db.EmailField(required=True)
     username = db.StringField(regex=r'[a-zA-Z\_][0-9a-zA-Z\_]*', max_length=42, required=True)
     password_hash = db.StringField(max_length=120)
-    comfirmed = db.BooleanField(default=False)
+    confirmed = db.BooleanField(default=False)
     about_me = db.StringField(max_length=120)
     avatar = db.StringField(max_length=120)
     since = db.DateTimeField(default=datetime.utcnow())
@@ -92,3 +92,13 @@ class User(UserMixin, db.Document):
 @login_manager.user_loader
 def load_user(user_id):
     return User.objects(int(user_id)).first()
+
+
+class AnonymousUser(AnonymousUserMixin):
+    def can(self, permissions):
+        return False
+
+    def is_administrator(self):
+        return False
+
+login_manager.anonymous_user = AnonymousUser

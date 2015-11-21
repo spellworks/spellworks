@@ -2,7 +2,7 @@
 __author__ = 'zeno guo'
 
 from flask.views import MethodView
-from flask import jsonify, url_for, request, redirect, render_template
+from flask import url_for, request, redirect, render_template, jsonify, flash
 from auth import auth
 from auth.models import User
 from flask.ext.login import current_user, login_user
@@ -18,9 +18,8 @@ def before_request():
             return redirect(url_for('auth.unconfirmed'))
 
 
-@auth.route('/unconfirmed')
 def unconfirmed():
-    if current_user.confirmed:
+    if not current_user.is_anonymous and current_user.confirmed:
         return redirect(url_for('main.index'))
     return render_template('auth/unconfirmed.html')
 
@@ -33,11 +32,14 @@ class LoginIndex(MethodView):
     def post(self, *args, **kw):
         form = request.form
         try:
-            user = User.objects(email=form['email']).first()
+            if u'@' in form['username']:
+                user = User.objects(email=form['username']).first()
+            else:
+                user = User.objects(username=form['username']).first()
         except BaseException, e:
             raise e
         if user is not None and login_user.verify_password(form['password']):
             login_user(user)
         else:
-            pass  # TODO: flash something!
-        return jsonify(status='ok')
+            flash("it works")
+        return jsonify(status="ok")

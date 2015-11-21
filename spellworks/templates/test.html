@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <div style="text-align: center;">
     <ul class="vertical-nav dark red">
         <li class="active"><a href="/"><i class="fa fa-home" style="margin-right: 14px;"></i>SpellWorks</a></li>
         <li><a href="#"><i class="fa fa-coffee"></i>Cafes</a>
@@ -44,6 +45,7 @@
         <li><a href="#"><i class="fa fa-envelope"></i>联系我们</a></li>
         <li class="downground"><a id="login" href="#test"><i class="fa fa-sign-in"></i>登录&nbsp;/&nbsp;注册</a></li>
     </ul>
+    </div>
     <div class="modal-inner-container" id="test">
         <div class="modal-header">
             <a class="close"><i class="fa fa-times"></i></a>
@@ -83,7 +85,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-login btn-primary" onclick="javascript:update(document.login-form);" form="login-form">
+            <button class="btn btn-login btn-primary" form="login-form">
                 <i class="fa fa-unlock"></i>&nbsp;Done
             </button>
             &nbsp;
@@ -92,53 +94,73 @@
             </button>
         </div>
     </div>
+    {% for message in get_flashed_messages() %}
+        <div class="flash flash-full flash-notice">
+            <div class="container">
+                <button class="flash-close js-flash-close">
+                    <span class="fa fa-times"></span>
+                </button>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
 </body>
 <script type="text/javascript" src="{{url_for('static', filename='js/google-maps.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/jquery.leanModal.min.js')}}"></script>
 <script type="text/javascript">
-    $(function() {
-        $('#login').leanModal({
-            top: 242,
-            closeButton: ".close"
-        });
+$(function() {
+    $('#login').leanModal({
+        top: 242,
+        closeButton: ".close"
     });
+});
 
-    $(document).ready(function() {
-        $(".vertical-nav").verticalnav();
+$(document).ready(function() {
+    $(".vertical-nav").verticalnav();
+});
+
+$(function() {
+    $(".close, #lean_overlay").click(function() {
+        if ($('#new-account-link').css("display") == "none") {
+            $("#new-account-link").toggle(true);
+            $("#form-inner").toggle(true);
+            $('#regist-email').remove();
+            $("#reset-field").remove();
+            $("#login-account-name").attr("placeholder", "email or username");
+            $("[for='login-account-name']").text("User");
+            $("#form-title").text("登录");
+        }
     });
+});
 
-    $(function() {
-        $(".close, #lean_overlay").click(function() {
-            if($('#new-account-link').css("display") == "none") {
-                 $("#new-account-link").toggle(true);
-                 $("#form-inner").toggle(true);
-                 $('#regist-email').remove();
-                 $("#reset-field").remove();
-                 $("#login-account-name").attr("placeholder", "email or username");
-                 $("[for='login-account-name']").text("User");
-                 $("#form-title").text("登录");
-            }
-        });
+function create_regist_form() {
+    $("#form-table").prepend("<tr id='regist-email'><td><label for='regist-account-email'>Email&nbsp;</label></td><td><input id='regist-account-email' class='ember-view ember-text-field' name='email' maxlength='200' placeholder='your email' type='email'> &nbsp;</td>/tr>");
+    $("#login-account-name").attr("placeholder", "your username");
+    $("[for='login-account-name']").text("Name");
+    $("#new-account-link").toggle(false);
+    $("#form-title").text("注册")
+};
+
+function forgot_form() {
+    $("#form-title").text("重置密码");
+    $("#form-inner").toggle(false);
+    $("#new-account-link").toggle(false);
+    $("#login-form").prepend("<div id='reset-field'><label for='username-or-email'>输入用户名或者邮箱，我们会发送一封邮件到你的邮箱。</label><input id='username-or-email' class='ember-view ember-text-field' autocapitalize='off' autocorrect='off' placeholder='email or username' type='text'></div>");
+};
+
+$('#login-form').submit(function(){
+    $.ajax({
+        type:'POST',
+        url:'/login/',
+        data:$(this).serialize(),
+        dataType: 'json',
+        success: function() {
+            window.location.href='/';
+        }
+    }).then(function(){
+        //doneCal
     });
-
-    // function update() {
-    //     $("#login-form").submit();
-    // };
-
-    function create_regist_form() {
-        $("#form-table").prepend("<tr id='regist-email'><td><label for='regist-account-email'>Email&nbsp;</label></td><td><input id='regist-account-email' class='ember-view ember-text-field' name='email' maxlength='200' placeholder='your email' type='email'> &nbsp;</td>/tr>");
-        $("#login-account-name").attr("placeholder", "your username");
-        $("[for='login-account-name']").text("Name");
-        $("#new-account-link").toggle(false);
-        $("#form-title").text("注册")
-    };
-
-    function forgot_form() {
-        $("#form-title").text("重置密码");
-        $("#form-inner").toggle(false);
-        $("#new-account-link").toggle(false);
-        $("#login-form").prepend("<div id='reset-field'><label for='username-or-email'>输入用户名或者邮箱，我们会发送一封邮件到你的邮箱。</label><input id='username-or-email' class='ember-view ember-text-field' autocapitalize='off' autocorrect='off' placeholder='email or username' type='text'></div>");
-    }
+});
 </script>
 
 </html>
