@@ -63,7 +63,7 @@
                                     </td>
                                     <td>
                                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                                        <input id="login-account-name" class="ember-view ember-text-field" autocapitalize="off" autocorrect="off" autofocus="" name="username" placeholder="email or username" type="text">
+                                        <input id="login-account-name" class="ember-view ember-text-field" autocapitalize="off" autocorrect="off" autofocus="" name="username" placeholder="email or username" type="text" required>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -72,7 +72,7 @@
                                         <label for="login-account-password">Password&nbsp;</label>
                                     </td>
                                     <td>
-                                        <input id="login-account-password" class="ember-view ember-text-field" name="password" maxlength="200" placeholder="" type="password"> &nbsp;
+                                        <input id="login-account-password" class="ember-view ember-text-field" name="password" maxlength="200" placeholder="" type="password" required> &nbsp;
                                     </td>
                                     <td>
                                         <a id="forgot-password-link" onclick="javascript:forgot_form()">I forgot my password</a>
@@ -165,9 +165,11 @@ $('#login-form').submit(function() {
         url: '/login/',
         data: $(this).serialize(),
         dataType: 'json',
-        // success: function() {
-        //     // window.location.href = '/';
-        // }
+        success: function(data) {
+            if(data.status == "ok"){
+                alert("ok")
+            }
+        }
     })
     return false;
 });

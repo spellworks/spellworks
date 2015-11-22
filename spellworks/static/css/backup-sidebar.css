@@ -316,7 +316,7 @@ li {
 
 .modal-inner-container {
     display: none;
-    max-width: 460px;
+    max-width: 475px;
     margin: 0 auto;
     background-color: #fff;
     /*border: 1px solid #e9e9e9;*/
@@ -536,10 +536,11 @@ body textarea {
 }
 
 .container {
-    width: 94%;
-    margin-right: auto;
-    margin-left: auto;
+    /*width: 87%;*/
+    margin-right: 115px;
+    margin-left: 105px;
     text-align: center;
+    position: initial;
 }
 
 .flash-full {
@@ -558,9 +559,9 @@ body textarea {
     width: 100%;
     height: 20px;
     top: 0;
-    position: absolute;
     z-index: -1;
-    position: fixed
+    position: fixed;
+    cursor: pointer;
 }
 
 .modal-outer-container {

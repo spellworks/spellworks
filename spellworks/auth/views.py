@@ -1,11 +1,14 @@
 # -*- coding:utf-8 -*-
 __author__ = 'zeno guo'
 
-from flask.views import MethodView
-from flask import url_for, request, redirect, render_template, jsonify, flash
+import re
 from auth import auth
 from auth.models import User
+from flask.views import MethodView
+from mongoengine.errors import ValidationError
+from mongoengine.queryset import NotUniqueError
 from flask.ext.login import current_user, login_user
+from flask import url_for, request, redirect, render_template, jsonify, flash
 
 
 @auth.before_app_request
@@ -24,7 +27,7 @@ def unconfirmed():
     return render_template('auth/unconfirmed.html')
 
 
-class LoginIndex(MethodView):
+class Login(MethodView):
 
     def get(self, *args, **kw):
         return redirect(url_for('main.index'))
@@ -38,8 +41,34 @@ class LoginIndex(MethodView):
                 user = User.objects(username=form['username']).first()
         except BaseException, e:
             raise e
+            user = None
         if user is not None and login_user.verify_password(form['password']):
-            login_user(user)
+            login_user(user, remember=True)
+            flash("Welcome")
         else:
-            flash("it works")
+            return jsonify(status="unfind")
         return jsonify(status="ok")
+
+
+class Regist(MethodView):
+
+    def get(self, *args, **kw):
+        return redirect(url_for('main.index'))
+
+    def post(self, *args, **kw):
+        form = request.form
+        try:
+            new_user = User(username=form['username'], email=form['email'])
+            new_user.password = form['password']
+            new_user.save()
+        except NotUniqueError, e:  # email or username is not unique
+            if re.match(r'.*/$email.*', str(e)):
+                pass
+            elif re.match(r'.*/$username.*', str(e)):
+                pass
+        except ValidationError, e:  # email or username is invalid
+            pass
+        except ValueError, e:  # password is invalid
+            pass
+        except BaseException, e:
+            raise e

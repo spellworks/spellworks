@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 __author__ = 'zeno guo'
 
+import re
 from spellworks import db, login_manager
 from datetime import datetime
 from flask import current_app
@@ -47,9 +48,9 @@ class Role(db.Document):
 
 class User(UserMixin, db.Document):
     role = db.ReferenceField(Role)
-    email = db.EmailField(required=True)
-    username = db.StringField(regex=r'[a-zA-Z\_][0-9a-zA-Z\_]*', max_length=42, required=True)
-    password_hash = db.StringField(max_length=120)
+    email = db.EmailField(required=True, unique=True)
+    username = db.StringField(regex=r'[a-zA-Z\_][0-9a-zA-Z\_]*', max_length=42, required=True, unique=True)
+    password_hash = db.StringField(max_length=120, required=True)
     confirmed = db.BooleanField(default=False)
     about_me = db.StringField(max_length=120)
     avatar = db.StringField(max_length=120)
@@ -61,6 +62,17 @@ class User(UserMixin, db.Document):
     @staticmethod
     def hash_password(password):
         return generate_password_hash(password)
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+    @password.setter
+    def password(self, password):
+        if re.match(r'^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,22}$', password):
+            self.password_hash = generate_password_hash(password)
+        else:
+            raise ValueError("Password is not valid.")
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
