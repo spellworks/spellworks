@@ -614,3 +614,13 @@ body textarea {
         animation: octocat-wave 560ms ease-in-out;
     }
 }
+
+.alert.alert-error {
+    background-color: rgba(242,171,154,0.5);
+    color: #222;
+}
+
+.alert {
+    margin-bottom: 15px;
+    padding: 8px 35px 8px 14px;
+}

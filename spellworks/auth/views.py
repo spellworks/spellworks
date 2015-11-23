@@ -15,10 +15,10 @@ from flask import url_for, request, redirect, render_template, jsonify, flash
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
-        if not current_user.confirmed \
-                and request.endpoint[:5] != 'auth.' \
-                and request.endpoint != 'static':
-            return redirect(url_for('auth.unconfirmed'))
+    #     if not current_user.confirmed \
+    #             and request.endpoint[:5] != 'auth.' \
+    #             and request.endpoint != 'static':
+    #         return redirect(url_for('auth.unconfirmed'))
 
 
 def unconfirmed():
@@ -41,12 +41,11 @@ class Login(MethodView):
                 user = User.objects(username=form['username']).first()
         except BaseException, e:
             raise e
-            user = None
-        if user is not None and login_user.verify_password(form['password']):
+        if user is not None and user.verify_password(form['password']):
             login_user(user, remember=True)
             flash("Welcome")
         else:
-            return jsonify(status="unfind")
+            return jsonify(status="unfind", message=u"Incorrect username or password.")
         return jsonify(status="ok")
 
 
@@ -61,14 +60,19 @@ class Regist(MethodView):
             new_user = User(username=form['username'], email=form['email'])
             new_user.password = form['password']
             new_user.save()
+            login_user(new_user, remember=True)
         except NotUniqueError, e:  # email or username is not unique
-            if re.match(r'.*/$email.*', str(e)):
-                pass
-            elif re.match(r'.*/$username.*', str(e)):
-                pass
-        except ValidationError, e:  # email or username is invalid
-            pass
+            if re.match(r'.*\$email.*', str(e)):
+                return jsonify(status="not-unique", message=u"Email has already confirmed.")
+            elif re.match(r'.*\$username.*', str(e)):
+                return jsonify(status="not-unique", message=u"Username has already confirmed.")
+        except ValidationError, e:  # email or username isu invalid
+            if re.match(r'.*Mail-address.*', str(e)):
+                return jsonify(status="invalid", message=u"Email is invalid.")
+            if re.match(r'.*username.*', str(e)):
+                return jsonify(status="invalid", message=u"Username is invalid.")
         except ValueError, e:  # password is invalid
-            pass
+            return jsonify(status="invalid", message=u"Password is invalid.")
         except BaseException, e:
             raise e
+        return jsonify(status="ok")

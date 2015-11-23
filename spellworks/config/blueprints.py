@@ -8,5 +8,5 @@ from spellworks.user import user as user_blueprint
 
 def regist_blueprint(app):
     app.register_blueprint(main_blueprint)
-    app.register_blueprint(auth_blueprint, url_prefix='/login')
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(user_blueprint)

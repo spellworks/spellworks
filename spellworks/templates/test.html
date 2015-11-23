@@ -54,7 +54,7 @@
                     <h3 id="form-title">登录</h3>
                 </div>
                 <div class="modal-body">
-                    <form id="login-form" name="login-form" method="post" action="/login/">
+                    <form id="login-form" name="login-form" method="post" action="/auth/login/">
                         <div id="form-inner">
                             <table id="form-table">
                                 <tr>
@@ -119,59 +119,78 @@
 <script type="text/javascript" src="{{url_for('static', filename='js/google-maps.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/jquery.leanModal.min.js')}}"></script>
 <script type="text/javascript">
+$(".flash").click(function() {
+    $(this).remove()
+});
+
 $(function() {
     $('#login').leanModal({
         top: 242,
         closeButton: ".close"
-    });
+    })
 });
 
 $(document).ready(function() {
-    $(".vertical-nav").verticalnav();
+    $(".vertical-nav").verticalnav()
 });
 
 $(function() {
     $(".close, #lean_overlay").click(function() {
         if ($('#new-account-link').css("display") == "none") {
-            $("#new-account-link").toggle(true);
-            $("#form-inner").toggle(true);
-            $('#regist-email').remove();
-            $("#reset-field").remove();
-            $("#login-account-name").attr("placeholder", "email or username");
-            $("[for='login-account-name']").text("User");
-            $("#form-title").text("登录");
+            $("#new-account-link").toggle(true)
+            $("#form-inner").toggle(true)
+            $('#regist-email').remove()
+            $("#reset-field").remove()
+            $("#login-account-name").attr("placeholder", "email or username")
+            $("[for='login-account-name']").text("User")
+            $("#form-title").text("登录")
+            $("#login-form").attr("action", "/auth/login/")
         }
     });
 });
 
 function create_regist_form() {
-    $("#form-table").prepend("<tr id='regist-email'><td><label for='regist-account-email'>Email&nbsp;</label></td><td><input id='regist-account-email' class='ember-view ember-text-field' name='email' maxlength='200' placeholder='your email' type='email'> &nbsp;</td>/tr>");
-    $("#login-account-name").attr("placeholder", "your username");
-    $("[for='login-account-name']").text("Name");
-    $("#new-account-link").toggle(false);
+    $("#form-table").prepend("<tr id='regist-email'><td><label for='regist-account-email'>Email&nbsp;</label></td><td><input id='regist-account-email' class='ember-view ember-text-field' name='email' maxlength='200' placeholder='your email' type='email'> &nbsp;</td>/tr>")
+    $("#login-account-name").attr("placeholder", "your username")
+    $("[for='login-account-name']").text("Name")
+    $("#new-account-link").toggle(false)
     $("#form-title").text("注册")
+    $("#login-form").attr("action", "/auth/regist/")
 };
 
 function forgot_form() {
-    $("#form-title").text("重置密码");
-    $("#form-inner").toggle(false);
-    $("#new-account-link").toggle(false);
-    $("#login-form").prepend("<div id='reset-field'><label for='username-or-email'>输入用户名或者邮箱，我们会发送一封邮件到你的邮箱。</label><input id='username-or-email' class='ember-view ember-text-field' autocapitalize='off' autocorrect='off' placeholder='email or username' type='text'></div>");
+    $("#form-title").text("重置密码")
+    $("#form-inner").toggle(false)
+    $("#new-account-link").toggle(false)
+    $("#login-form").prepend("<div id='reset-field'><label for='username-or-email'>输入用户名或者邮箱，我们会发送一封邮件到你的邮箱。</label><input id='username-or-email' class='ember-view ember-text-field' autocapitalize='off' autocorrect='off' placeholder='email or username' type='text'></div>")
 };
 
 $('#login-form').submit(function() {
     $.ajax({
         type: 'POST',
-        url: '/login/',
+        url: $(this).attr("action"),
         data: $(this).serialize(),
         dataType: 'json',
         success: function(data) {
+            $("#modal-alert").remove()
             if(data.status == "ok"){
-                alert("ok")
+                window.location.reload()
+            }
+            else {
+                if ($("#modal-alert").length == 0){
+                    $(".modal-header").after('<div id="modal-alert" style="display: block;" class="alert alert-error">' + data.message + '</div>')
+                }
+                else {
+                    $("#modal-alert").each(function() {
+                        if($(this).text() != data.message) {
+                            $(".modal-header").after('<div id="modal-alert" style="display: block;" class="alert alert-error">' + data.message + '</div>')
+                        }
+                    })
+                }
             }
         }
     })
-    return false;
+    return false
 });
 </script>
 
