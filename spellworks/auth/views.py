@@ -3,7 +3,7 @@ __author__ = 'zeno guo'
 
 import re
 from auth import auth
-from auth.models import User
+from auth.models import User, Role
 from flask.views import MethodView
 from mongoengine.errors import ValidationError
 from mongoengine.queryset import NotUniqueError
@@ -57,7 +57,7 @@ class Regist(MethodView):
     def post(self, *args, **kw):
         form = request.form
         try:
-            new_user = User(username=form['username'], email=form['email'])
+            new_user = User(username=form['username'], email=form['email'], role=Role.objects(name="User").first())
             new_user.password = form['password']
             new_user.save()
             login_user(new_user, remember=True)
