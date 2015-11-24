@@ -44,7 +44,7 @@ class Login(MethodView):
             raise e
         if user is not None and user.verify_password(form['password']):
             login_user(user, remember=True)
-            flash(u"Welcome, please check your mail box and confirm mail address.")
+            flash(u"Welcome.")
         else:
             return jsonify(status="unfind", message=u"Incorrect username or password.")
         return jsonify(status="ok")
@@ -79,6 +79,7 @@ class Regist(MethodView):
         login_user(new_user, remember=True)
         token = new_user.generate_token("confirm")
         email.send_email(form['email'], u"注册确认", "/mail/confirm", confirm_token=token)
+        flash(u"Welcome, please check your mail box and confirm mail address.")
 
         return jsonify(status="ok")
 
