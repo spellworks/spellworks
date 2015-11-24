@@ -2,6 +2,7 @@
 __author__ = 'zeno guo'
 
 import re
+from spellworks import email
 from auth import auth
 from auth.models import User, Role
 from flask.views import MethodView
@@ -43,7 +44,7 @@ class Login(MethodView):
             raise e
         if user is not None and user.verify_password(form['password']):
             login_user(user, remember=True)
-            flash("Welcome")
+            flash(u"Welcome, and please check your mail box and confirm mail address.")
         else:
             return jsonify(status="unfind", message=u"Incorrect username or password.")
         return jsonify(status="ok")
@@ -60,13 +61,12 @@ class Regist(MethodView):
             new_user = User(username=form['username'], email=form['email'], role=Role.objects(name="User").first())
             new_user.password = form['password']
             new_user.save()
-            login_user(new_user, remember=True)
         except NotUniqueError, e:  # email or username is not unique
             if re.match(r'.*\$email.*', str(e)):
                 return jsonify(status="not-unique", message=u"Email has already confirmed.")
             elif re.match(r'.*\$username.*', str(e)):
                 return jsonify(status="not-unique", message=u"Username has already confirmed.")
-        except ValidationError, e:  # email or username isu invalid
+        except ValidationError, e:  # email or username is invalid
             if re.match(r'.*Mail-address.*', str(e)):
                 return jsonify(status="invalid", message=u"Email is invalid.")
             if re.match(r'.*username.*', str(e)):
@@ -75,4 +75,38 @@ class Regist(MethodView):
             return jsonify(status="invalid", message=u"Password is invalid.")
         except BaseException, e:
             raise e
+
+        login_user(new_user, remember=True)
+        token = new_user.generate_token("confirm")
+        email.send_email(form['email'], u"注册确认", "/mail/confirm", confirm_token=token)
+
         return jsonify(status="ok")
+
+
+class Confirm(MethodView):
+
+    def get(self, confirm_type, token):
+        if current_user.is_authenticated and current_user.verify_token(confirm_type, token):
+            if confirm_type == "confirm":
+                return self._confirm_account()
+
+    def post(self):
+        pass
+
+    @staticmethod
+    def _confirm_account():
+        current_user.confirmed = True
+        try:
+            current_user.save()
+        except BaseException, e:
+            raise e
+        flash(u"邮箱已经验证成功，欢迎。")
+        return redirect(url_for("main.index"))
+
+    @staticmethod
+    def _change_email():
+        pass
+
+    @staticmethod
+    def _reset_password():
+        pass

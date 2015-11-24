@@ -18,6 +18,7 @@ class Config:
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    FLASKY_MAIL_SUBJECT_PREFIX = u"[SpellWorks]"
 
     @staticmethod
     def init_app(app):  #: 初始化

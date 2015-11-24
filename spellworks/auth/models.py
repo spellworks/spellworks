@@ -80,7 +80,7 @@ class User(UserMixin, db.Document):
     def generate_token(self, token_type, expiration=3600):
         if token_type in TOKEN_TYPE_MAP:
             s = Serializer(current_app.config['SECRET_KEY'], expiration)
-            return s.dumps({token_type: self.id})
+            return s.dumps({token_type: str(self.id)})
 
     def verify_token(self, token_type, token):
         if token_type not in TOKEN_TYPE_MAP:
@@ -92,7 +92,7 @@ class User(UserMixin, db.Document):
             return False
         if token_type not in data:
             return False
-        if data.get(token_type) != self.id:
+        if data.get(token_type) != str(self.id):
             return False
         return True
 
