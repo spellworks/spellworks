@@ -1,0 +1,2 @@
+您好，欢迎加入SpellWorks。请点击如下地址完成注册：
+spellworks.net/auth/confirm/{{ confirm_token }}

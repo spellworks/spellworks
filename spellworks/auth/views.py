@@ -44,7 +44,7 @@ class Login(MethodView):
             raise e
         if user is not None and user.verify_password(form['password']):
             login_user(user, remember=True)
-            flash(u"Welcome, and please check your mail box and confirm mail address.")
+            flash(u"Welcome, please check your mail box and confirm mail address.")
         else:
             return jsonify(status="unfind", message=u"Incorrect username or password.")
         return jsonify(status="ok")
