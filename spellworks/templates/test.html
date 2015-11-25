@@ -43,7 +43,11 @@
             <li><a href="#"><i class="fa fa-newspaper-o"></i>博客</a></li>
             <li><a href="#"><i class="fa fa-wrench"></i>杂货间</a></li>
             <li><a href="#"><i class="fa fa-envelope"></i>联系我们</a></li>
+            {% if not current_user.is_authenticated %}
             <li class="downground"><a id="login" href="#test"><i class="fa fa-sign-in"></i>登录&nbsp;/&nbsp;注册</a></li>
+            {% else %}
+            <li class="downground"><a id="logout" href="/auth/logout/"><i class="fa fa-sign-out"></i>注销</a></li>
+            {% endif %}
         </ul>
     </div>
     <div class="modal-outer-container">

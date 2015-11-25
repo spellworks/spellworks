@@ -8,7 +8,7 @@ from auth.models import User, Role
 from flask.views import MethodView
 from mongoengine.errors import ValidationError
 from mongoengine.queryset import NotUniqueError
-from flask.ext.login import current_user, login_user
+from flask.ext.login import current_user, login_user, logout_user, login_required
 from flask import url_for, request, redirect, render_template, jsonify, flash
 
 
@@ -120,3 +120,10 @@ class Confirm(MethodView):
     @staticmethod
     def _reset_password():
         pass
+
+
+@login_required
+def log_out():
+    logout_user()
+    flash(u"现在你已经注销了。")
+    return redirect(url_for("main.index"))
