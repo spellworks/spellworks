@@ -90,18 +90,27 @@ class Confirm(MethodView):
         if current_user.is_authenticated and current_user.verify_token(confirm_type, token):
             if confirm_type == "confirm":
                 return self._confirm_account()
+            else:
+                flash(u"Token不合法。")
+                return redirect(url_for("main.index"))
+        else:
+            flash(u"你还没有登录或者token不合法。")
+            return redirect(url_for("main.index"))
 
     def post(self):
         pass
 
     @staticmethod
     def _confirm_account():
-        current_user.confirmed = True
-        try:
-            current_user.save()
-        except BaseException, e:
-            raise e
-        flash(u"邮箱已经验证成功，欢迎。")
+        if current_user.confirmed:
+            flash(u"你已经验证过邮箱了。")
+        else:
+            current_user.confirmed = True
+            try:
+                current_user.save()
+            except BaseException, e:
+                raise e
+            flash(u"邮箱已经验证成功，欢迎。")
         return redirect(url_for("main.index"))
 
     @staticmethod
