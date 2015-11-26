@@ -50,6 +50,16 @@
             {% endif %}
         </ul>
     </div>
+    {% for message in get_flashed_messages() %}
+    <div class="flash flash-full flash-notice">
+        <div class="container">
+            <button class="flash-close js-flash-close">
+                <span class="fa fa-times"></span>
+            </button>
+            {{ message }}
+        </div>
+    </div>
+    {% endfor %}
     <div class="modal-outer-container">
         <div class="modal-middle-container">
             <div class="modal-inner-container" id="test">
@@ -102,16 +112,6 @@
             </div>
         </div>
     </div>
-{% for message in get_flashed_messages() %}
-<div class="flash flash-full flash-notice">
-    <div class="container">
-        <button class="flash-close js-flash-close">
-            <span class="fa fa-times"></span>
-        </button>
-        {{ message }}
-    </div>
-</div>
-{% endfor %}
 <a href="https://github.com/spellworks/spellworks" class="github-corner">
   <svg width="80" height="80" viewBox="0 0 250 250" style="position: absolute; top: 0px; right: 0px; border: 0px;">
     <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" fill="#151513"></path>
