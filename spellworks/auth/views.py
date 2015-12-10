@@ -2,7 +2,7 @@
 __author__ = 'zeno guo'
 
 import re
-from spellworks import email
+from spellworks import mail_send
 from auth import auth
 from auth.models import User, Role
 from flask.views import MethodView
@@ -78,7 +78,7 @@ class Regist(MethodView):
 
         login_user(new_user, remember=True)
         token = new_user.generate_token("confirm")
-        email.send_email(form['email'], u"注册确认", "/mail/confirm", confirm_token=token)
+        mail_send.send_email(form['email'], u"注册确认", "/mail/confirm", confirm_token=token)
         flash(u"Welcome, please check your mail box and confirm mail address.")
 
         return jsonify(status="ok")
