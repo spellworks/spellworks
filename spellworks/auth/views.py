@@ -90,6 +90,10 @@ class Confirm(MethodView):
         if current_user.is_authenticated and current_user.verify_token(confirm_type, token):
             if confirm_type == "confirm":
                 return self._confirm_account()
+            elif confirm_type == "change":
+                return self._change_email()
+            elif confirm_type == "reset":
+                return self._reset_password()
             else:
                 flash(u"Token不合法。")
                 return redirect(url_for("main.index"))
