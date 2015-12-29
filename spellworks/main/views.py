@@ -8,7 +8,7 @@ from flask import jsonify, render_template
 class Index(MethodView):
 
     def get(self):
-        return render_template('test.html')
+        return render_template('test.jade')
 
     def post(self, *args, **kw):
         return jsonify(status='ok')

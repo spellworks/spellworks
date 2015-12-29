@@ -22,6 +22,7 @@ class Config:
 
     @staticmethod
     def init_app(app):  #: 初始化
+        app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
         configure_errorhandlers(app)
         regist_blueprint(app)
 
@@ -31,8 +32,8 @@ class DevelopmentConfig(Config):
     MONGODB_SETTINGS = {
         'db': 'spellworks',
         'host': os.environ.get('DEV_DATABASE_URL') or
-                'mongodb://admin:0.618033@localhost:27111/spellworks',
-        }
+        'mongodb://admin:0.618033@localhost:27111/spellworks',
+    }
 
 
 class TestingConfig(Config):
@@ -40,8 +41,8 @@ class TestingConfig(Config):
     MONGODB_SETTINGS = {
         'db': 'spellworks',
         'host': os.environ.get('DEV_DATABASE_URL') or
-                'mongodb://admin:0.618033@localhost:27111/spellworks',
-        }
+        'mongodb://admin:0.618033@localhost:27111/spellworks',
+    }
 
 
 config = {
