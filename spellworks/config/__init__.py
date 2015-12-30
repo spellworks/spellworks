@@ -20,6 +20,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     FLASKY_MAIL_SUBJECT_PREFIX = u"[SpellWorks]"
 
+    WEBPACK_MANIFEST_PATH = './static/build/manifest.json'
+
     @staticmethod
     def init_app(app):  #: 初始化
         app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')

@@ -6,6 +6,7 @@ from flask.ext.wtf import CsrfProtect
 from flask.ext.mail import Mail
 from flask.ext.login import LoginManager
 from flask.ext.mongoengine import MongoEngine
+from flask_webpack import Webpack
 
 
 csrf = CsrfProtect()
@@ -14,6 +15,7 @@ mail = Mail()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login_index'
+webpack = Webpack()
 
 
 def create_app(config_name):
@@ -27,5 +29,6 @@ def create_app(config_name):
     csrf.init_app(app)
     mail.init_app(app)
     login_manager.init_app(app)
+    # webpack.init_app(app)
 
     return app
