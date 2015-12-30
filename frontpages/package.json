@@ -1,12 +1,12 @@
 {
-  "name": "webstaging",
+  "name": "spellworks",
   "description": "The spellworks front-end staging",
   "author": "spellworks",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.conf.js",
     "build": "webpack --progress --profile --hide-modules --colors --config build/webpack.prod.conf.js",
     "test": "karma start build/karma.conf.js --single-run",
-    "start": "node_modules/.bin/webpack-dev-server --progress --colors --port 2992 --content-base build/public"
+    "start": "webpack-dev-server --progress --colors --port 2992 --content-base build/public"
   },
   "dependencies": {
     "vue": "^1.0.0"
@@ -24,8 +24,9 @@
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.4",
     "function-bind": "^1.0.2",
-    "inject-loader": "^2.0.1",
     "image-webpack-loader": "^1.4.0",
+    "inject-loader": "^2.0.1",
+    "jade": "^1.11.0",
     "jasmine-core": "^2.4.1",
     "json-loader": "^0.5.4",
     "karma": "^0.13.15",
@@ -37,11 +38,18 @@
     "phantomjs": "^1.9.19",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
+    "template-html-loader": "0.0.3",
     "url-loader": "^0.5.7",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^7.3.0",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0"
-  }
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "license": "ISC"
 }
